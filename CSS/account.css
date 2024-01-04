@@ -1,0 +1,14 @@
+.login {
+  color: #ffff;
+}
+.login:hover {
+  font-weight: 500;
+}
+
+.div2{
+  position: absolute;
+  top: 50px;
+}
+.show{
+  display: block;
+}

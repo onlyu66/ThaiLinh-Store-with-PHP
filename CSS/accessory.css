@@ -1,0 +1,196 @@
+.itemAcc {
+  background-color: white;
+}
+.filter {
+  background-color: white;
+  box-shadow: 1px 0px 5px rgb(181, 180, 180);
+  border-radius: 7px;
+  padding-left: 120px;
+}
+.filter p {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #208f89;
+}
+.filter ul li {
+  margin: 0 10px;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+}
+.filter ul li span {
+  margin-right: 1px;
+}
+.filter ul li:hover {
+  color: rgb(245, 69, 69);
+}
+.filter ul li:hover .subCategory {
+  visibility: visible;
+}
+.subCategory {
+  display: flex;
+  justify-content: space-around;
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  top: 46px;
+  width: 1210px;
+  left: -285px;
+  border-radius: 7px;
+}
+.subCategory li ul li {
+  font-size: 15.5px;
+  color: #044a47;
+}
+.subCategory li ul li:hover {
+  color: #208f89;
+}
+.filter ul li:hover .subBrand {
+  visibility: visible;
+}
+.subBrand {
+  display: flex;
+  justify-content: space-around;
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  top: 46px;
+  width: 1211px;
+  left: -400px;
+  border-radius: 7px;
+}
+.subBrand li ul li {
+  font-size: 15.5px;
+  color: #044a47;
+}
+.subBrand li ul li:hover {
+  color: #208f89;
+}
+.filter ul li:hover .subPrice {
+  visibility: visible;
+}
+.subPrice {
+  display: flex;
+  justify-content: space-around;
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  top: 46px;
+  width: 1211px;
+  left: -531px;
+  border-radius: 7px;
+}
+.subPrice li ul li {
+  font-size: 15.5px;
+  color: #044a47;
+}
+.subPrice li ul li:hover {
+  color: #208f89;
+}
+.filter ul li:hover .subSort {
+  visibility: visible;
+}
+.subSort {
+  /* display: flex; */
+  /* justify-content: space-around; */
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  top: 46px;
+  width: 170px;
+  left: 0px;
+  border-radius: 7px;
+}
+.subSort li ul li {
+  font-size: 15.5px;
+  color: #044a47;
+}
+.subSort li ul li:hover {
+  color: #208f89;
+}
+
+.itemAcc {
+  width: 19%;
+  background-color: white;
+  text-align: center;
+}
+.itemAcc img {
+  margin: 0 auto;
+  /* width: 80%; */
+  cursor: pointer;
+}
+.itemAcc p:nth-child(2) {
+  font-weight: 700;
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+}
+.itemAcc p:nth-child(2):hover {
+  color: #146561;
+}
+.itemAcc p:nth-child(3) {
+  font-weight: 700;
+  color: rgb(254, 27, 27);
+  font-size: 19px;
+}
+.divHiddenAcc {
+  background-color: rgb(232, 232, 232);
+  top: 50px;
+  left: 1px;
+  width: 227px;
+  height: 122px;
+  visibility: hidden;
+}
+.itemAcc:hover .divHiddenAcc {
+  visibility: visible;
+}
+.divHiddenAcc p {
+  background-color: rgb(253, 251, 251);
+  border: 2px solid #208f89;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 60%;
+  margin: 40px auto;
+}
+.divHiddenAcc p:hover {
+  background-color: #208f89;
+  color: #ffffff;
+}
+.expAccessory div p {
+  font-size: 14px;
+}
+.expAccessory > div:hover {
+  color: #208f89;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prominentAccessory .prominentAccessoryDiv {
+  background-color: #208f89;
+  padding: 6px 40px 5px 100px;
+  font-weight: 700;
+  color: white; 
+}
+.prominentAccessory .divHiddenAcc {
+  background-color: rgb(232, 232, 232);
+  top: 50px;
+  left: 1px;
+  width: 238px;
+  height: 122px;
+  visibility: hidden;
+}
+.prominentAccessory .itemAcc:hover .divHiddenAcc{
+  visibility: visible;
+}
+.prominentAccessory .divHiddenAcc p {
+  background-color: rgb(253, 251, 251);
+  border: 2px solid #208f89;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 60%;
+  margin: 40px auto;
+}
+.prominentAccessory .divHiddenAcc p:hover {
+  background-color: #208f89;
+  color: #ffffff;
+}

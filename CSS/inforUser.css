@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.inforUserContainer {
+  display: grid;
+  grid-template-areas: "inforUserSideBar inforUserArticle";
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 555px;
+}
+.inforUserSideBar {
+  grid-area: inforUserSideBar;
+}
+.inforUserArticle {
+  grid-area: inforUserArticle;
+}
+.active{
+    color: #208f89;
+    font-weight: 500;
+}
+
+.hiddenU{
+  visibility: hidden;
+}
