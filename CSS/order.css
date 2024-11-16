@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.orderContainer {
+  display: grid;
+  grid-template-areas: "itemOrder inforUser";
+  grid-template-columns: 60% 40%;
+  grid-template-rows: auto auto;
+}
+.itemOrder {
+  grid-area: itemOrder;
+}
+.inforUser {
+  grid-area: inforUser;
+}
+.inforUser form {
+  margin-left: 81px;
+  width: 83%;
+}
+.inforUser form input {
+  width: 100%;
+}
+.return {
+  width: 65px !important;
+}
+.return span {
+  margin-left: 10px;
+  font-size: 14px;
+}
+.inforUser form .htnh {
+  width: 11%;
+  background-color: #208f89;
+}
+.htnhI .divR {
+  width: 49%;
+}
+.htnhI .divR:hover {
+  font-weight: 500;
+}
+.divToShow {
+  /* display: flex; */
+  display: none;
+}
+.div2 {
+  display: block;
+}
+#city {
+  width: 49%;
+}
+#district {
+  width: 49%;
+}
+.inforUser form #ycxhd {
+  width: 15px;
+}
+.xndh {
+  background-color: #208f89;
+}
+.goiY {
+  margin-left: 81px;
+  width: 83%;
+}
+.goiY .goiYDiv {
+  background-color: #208f89;
+  padding: 6px 40px 5px 100px;
+  font-weight: 600;
+  color: white;
+  margin-top: 30px;
+}
+.goiY .divHiddenGy {
+  background-color: rgb(232, 232, 232);
+  top: 50px;
+  left: 1px;
+  width: 197px;
+  height: 122px;
+  visibility: hidden;
+}
+.goiY .itemGy:hover .divHiddenGy {
+  visibility: visible;
+}
+.goiY .divHiddenGy p {
+  background-color: rgb(253, 251, 251);
+  border: 2px solid #208f89;
+  padding: 9px;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 60%;
+  margin: 40px auto;
+}
+.goiY .divHiddenGy p:hover {
+  background-color: #208f89;
+  color: #ffffff;
+}
+.itemGy {
+  width: 19%;
+  background-color: white;
+  text-align: center;
+}
+.itemGy img {
+  margin: 0 auto;
+  /* width: 80%; */
+  cursor: pointer;
+}
+.itemGy p:nth-child(2) {
+  font-weight: 700;
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+}
+.itemGy p:nth-child(2):hover {
+  color: #146561;
+}
+.itemGy p:nth-child(3) {
+  font-weight: 700;
+  color: rgb(254, 27, 27);
+  font-size: 19px;
+}
+.divHiddenGy {
+  background-color: rgb(232, 232, 232);
+  top: 50px;
+  left: 1px;
+  width: 227px;
+  height: 122px;
+  visibility: hidden;
+}
+.itemGy:hover .divHiddenGy {
+  visibility: visible;
+}
+.divHiddenGy p {
+  background-color: rgb(253, 251, 251);
+  border: 2px solid #208f89;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 60%;
+  margin: 40px auto;
+}
+.divHiddenGy p:hover {
+  background-color: #208f89;
+  color: #ffffff;
+}
+.hiddenD{
+  visibility: hidden;
+}
+
+#show{
+  display: none;
+  background: #f3f3f3;
+}

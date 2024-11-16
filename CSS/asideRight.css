@@ -1,0 +1,14 @@
+.containerAr {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80%;
+  width: 35%;
+  margin-left: 8px;
+}
+.containerAr img {
+  width: 100%;
+}
+.divAr {
+  height: 100%;
+  background-color: #fafafa;
+}
