@@ -87,7 +87,7 @@
                     <!-- Discount -->
                     <div class="mb-3">
                         <label class="form-label">Discount (%)</label>
-                        <input type="number" name="discount" class="form-control" min="0" max="100">
+                        <input type="number" name="discount" class="form-control">
                         <div class="invalid-feedback" id="discountError"></div>
                     </div>
 
@@ -110,7 +110,7 @@
                     <!-- Stock Quantity -->
                     <div class="mb-3">
                         <label class="form-label">Stock Quantity</label>
-                        <input type="number" name="stockQuantity" class="form-control" min="0">
+                        <input type="number" name="stockQuantity" class="form-control">
                         <div class="invalid-feedback" id="stockQuantityError"></div>
                     </div>
 
@@ -121,7 +121,7 @@
                         <div class="invalid-feedback" id="descriptionError"></div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="submit" name="submitBtn" class="btn btn-primary">Add Product</button>
                 </form>
             </div>
         </div>
@@ -177,23 +177,25 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Product added successfully!');
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Success!',
+                //     text: 'Product added successfully!',
+                //     showConfirmButton: false,
+                //     timer: 1500
+                // }).then(() => {
+                    
+                // });
                 location.reload();
             } else {
                 if (data.errors) {
                     Object.entries(data.errors).forEach(([key, value]) => {
                         const errorElement = document.getElementById(key + 'Error');
                         if (errorElement) {
-                            if (key === 'color') {
-                                // Xử lý hiển thị lỗi cho Colors
-                                errorElement.innerHTML = value;
-                                //errorElement.classList.remove('d-none');
-                            } else {
-                                errorElement.innerHTML = value;
-                                const inputElement = errorElement.parentElement.querySelector('input, select');
-                                if (inputElement) {
-                                    inputElement.classList.add('is-invalid');
-                                }
+                            errorElement.innerHTML = value;
+                            const inputElement = errorElement.parentElement.querySelector('input, select');
+                            if (inputElement) {
+                                inputElement.classList.add('is-invalid');
                             }
                         }
                     });
@@ -202,12 +204,58 @@
                     const errorMessage = document.getElementById('errorMessage');
                     errorMessage.innerHTML = data.message;
                     errorMessage.classList.remove('d-none');
+                    // Sweet Alert cho lỗi
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message
+                    });
                 }
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while processing your request.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while processing your request.'
+            });
         });
     });
+
+    // Hàm reset form
+    function resetFields(formId) {
+        const form = document.getElementById(formId);
+
+        if (!form) {
+            console.error("Form not found with ID: " + formId);
+            return;
+        }
+
+        form.querySelectorAll('input, select, textarea').forEach(field => {
+            if (field.type === 'checkbox' || field.type === 'radio') {
+                field.checked = field.defaultChecked; // Đặt lại trạng thái checked ban đầu
+            } else if (field.type === 'file') {
+                field.value = ''; // Xóa giá trị của file input
+            } else if (field.tagName.toLowerCase() === 'select') {
+                field.value = field.options[0]?.value || ''; // Đặt về giá trị của tùy chọn đầu tiên, nếu có
+            } else {
+                field.value = field.defaultValue; // Đặt lại giá trị mặc định
+            }
+            field.classList.remove('is-invalid'); // Xóa trạng thái lỗi nếu có
+        });
+
+        // Xóa các thông báo lỗi
+        document.querySelectorAll('.invalid-feedback').forEach(el => el.innerHTML = '');
+        document.getElementById('thumbnailPreview').innerHTML = '';
+        document.getElementById('galleryPreview').innerHTML = '';
+        document.getElementById('errorMessage').classList.add('d-none');
+    }
+
+    // Gắn sự kiện vào nút Close
+    document.querySelector('#addProductModal .btn-close').addEventListener('click', function() {
+        resetFields('addProductForm');
+    });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

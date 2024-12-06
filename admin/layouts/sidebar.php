@@ -26,7 +26,7 @@
             </li>
           </a>
 
-          <a href="?action=products" class="link text-slate-400">
+          <a href="?action=products" class="link text-slate-400" id="productPageLink">
             <li>
               <i class="fa-brands fa-uncharted mr-1"></i>Products
             </li>

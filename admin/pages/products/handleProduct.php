@@ -48,7 +48,7 @@
         $errors['images'] = 'Gallery images is required';
 
       }else{
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
         $maxFileSize = 5 * 1024 * 1024;
         
         // 5MB
@@ -70,7 +70,7 @@
             
             // Kiểm tra loại file
             if (!in_array($fileType, $allowedTypes)){
-              $errors['images'] = 'Invalid image type. Only JPEG, PNG, GIF, and WebP are allowed';
+              $errors['images'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
               break;
 
             }
@@ -134,7 +134,7 @@
         $productId = $stmt->insert_id;
         
         // Handle thumbnail upload
-        $uploadDir ="../../assets/images/uploads/";    
+        $uploadDir ="../../../assets/images/uploads/";    
         if (!file_exists($uploadDir)){
           mkdir($uploadDir, 0777, true);
 
@@ -145,7 +145,7 @@
         if (move_uploaded_file($thumbnail['tmp_name'], $thumbnailPath)){
           
           // Update thumbnail path in database
-          $thumbnailDbPath ="../../assets/images/uploads/" . $thumbnailName;    
+          $thumbnailDbPath ="./assets/images/uploads/" . $thumbnailName;    
           $stmt = $conn->prepare("UPDATE products SET thumbnail = ? WHERE id = ?");    
           $stmt->bind_param("si", $thumbnailDbPath, $productId);    
           $stmt->execute();
@@ -156,7 +156,7 @@
               $imageName = time() . '_' . $_FILES['images']['name'][$key];
               $imagePath = $uploadDir . $imageName;
               if (move_uploaded_file($tmp_name, $imagePath)){
-                $imageDbPath = "../../assets/images/uploads/" . $imageName;
+                $imageDbPath = "./assets/images/uploads/" . $imageName;
                 $stmt = $conn->prepare("INSERT INTO galleries (productId, thumbnail) VALUES (?, ?)");
                 $stmt->bind_param("is", $productId, $imageDbPath);
                 $stmt->execute();
@@ -234,14 +234,14 @@
         $thumbnailChanged = !empty($_FILES['image']['name']);
         $galleryChanged = !empty($_FILES['images']['name'][0]);
         if ($thumbnailChanged){
-          $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+          $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
           $maxFileSize = 5 * 1024 * 1024;
           
           // 5MB
 
           // Kiểm tra loại file
           if (!in_array($_FILES['image']['type'], $allowedTypes)){
-            $errors['image'] = 'Invalid image type. Only JPEG, PNG, GIF, and WebP are allowed';
+            $errors['image'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
 
           }
           
@@ -255,7 +255,7 @@
         
         // Validate gallery images if uploaded
         if ($galleryChanged){
-          $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+          $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
           $maxFileSize = 5 * 1024 * 1024;
           
           // 5MB
@@ -277,7 +277,7 @@
               
               // Kiểm tra loại file
               if (!in_array($fileType, $allowedTypes)){
-                $errors['images'] = 'Invalid image type. Only JPEG, PNG, GIF, and WebP are allowed';
+                $errors['images'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
                 break;
 
               }
@@ -316,7 +316,7 @@
         $updateAt = date('Y-m-d H:i:s');
         
         // Upload directory
-        $uploadDir ="../../assets/images/uploads/";    
+        $uploadDir ="../../../assets/images/uploads/";    
         if (!file_exists($uploadDir)){
           mkdir($uploadDir, 0777, true);
 
@@ -348,7 +348,7 @@
           if ($thumbnailChanged){
             $thumbnailName = time() . '_' . basename($_FILES['image']['name']);
             $thumbnailPath = $uploadDir . $thumbnailName;
-            $thumbnailDbPath ="../../assets/images/uploads/" . $thumbnailName;    
+            $thumbnailDbPath ="./assets/images/uploads/" . $thumbnailName;    
             
             // Di chuyển file
             if (move_uploaded_file($_FILES['image']['tmp_name'], $thumbnailPath)){
@@ -377,7 +377,7 @@
             foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name){
               $imageName = time() . '_' . $_FILES['images']['name'][$key];
               $imagePath = $uploadDir . $imageName;
-              $imageDbPath ="../../assets/images/uploads/" . $imageName;    
+              $imageDbPath ="./assets/images/uploads/" . $imageName;    
               if (move_uploaded_file($tmp_name, $imagePath)){
                 $stmt = $conn->prepare("INSERT INTO galleries (productId, thumbnail) VALUES (?, ?)");
                 $stmt->bind_param("is", $id, $imageDbPath);

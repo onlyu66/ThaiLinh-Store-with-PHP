@@ -146,7 +146,7 @@
   height: 122px;
   visibility: hidden;
 }
-.itemA:hover .divHidden{
+.itemA:hover .divHidden {
   visibility: visible;
 }
 .divHidden p {

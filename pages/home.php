@@ -97,32 +97,8 @@
         <div class="inline-block rounded-tl-lg">
             APPLE AUTHORISED RESELLER
         </div>
-        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly">
-            <?php 
-                $appleAuthSql="select products.id as id, products.model as model, products.price as price,
-                products.thumbnail as thumbnail, products.discount as discount from products join brands on products.brandId=brands.id 
-                where brand like 'Apple' and categoryId in (1,2) order by createAt desc limit 20";
-                // $appleAuthSql = "SELECT * FROM productdetails WHERE LOWER(brand) LIKE 'apple' LIMIT 20";
-                $appleAuthQuery= mysqli_query($conn, $appleAuthSql);
-                while($rowAa=mysqli_fetch_array($appleAuthQuery)){
-            ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowAa['id'];?>">
-                <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
-                    <img src="<?php echo $rowAa['thumbnail']; ?>" alt="This is a image" />
-                    <p><?php echo $rowAa['model']; ?></p>
-                    <p><?php echo number_format($rowAa['price']*(1-$rowAa['discount'])); ?> ₫</p>
-                <span class="text-sm line-through" <?php echo ($rowAa['discount']>0)?"":"hidden"?>><?php echo number_format($rowAa['price']);?> ₫</span>
-                <span class="text-xs font-semibold" <?php echo ($rowAa['discount']>0)?"":"hidden"?>>Giảm <?php echo $rowAa['discount']*100?>%</span>
-                    <div class="divHidden absolute opacity-75">
-                    <a href="pages/cart/workWithCart.php?id=<?php echo $rowAa['id'];?>">
-                            <p>Thêm giỏ hàng</p>
-                        </a>
-                    </div>
-                </li>
-                </a>
-            <?php
-                }
-            ?>
+        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly" id="appleAuthContent">
+            
         </ul>
     </div>
     <div class="mt-3">
@@ -141,31 +117,8 @@
             <li>Xem tất cả</li>
             </ul>
         </div>
-        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly">
-            <?php 
-                $prominentPhoneSql="select products.id as id, products.model as model, products.price as price,
-                products.thumbnail as thumbnail, products.discount as discount from products left join categories on products.categoryId = categories.id where name like 'phone' order by createAt desc limit 20";
-                // $appleAuthSql = "SELECT * FROM productdetails WHERE LOWER(brand) LIKE 'apple' LIMIT 20";
-                $prominentPhoneQuery= mysqli_query($conn, $prominentPhoneSql);
-                while($rowPp=mysqli_fetch_array($prominentPhoneQuery)){
-            ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowPp['id'];?>">
-                <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
-                    <img src="<?php echo $rowPp['thumbnail']; ?>" alt="This is a image" />
-                    <p><?php echo $rowPp['model']; ?></p>
-                    <p><?php echo number_format($rowPp['price']*(1-$rowPp['discount'])); ?> ₫</p>
-                <span class="text-sm line-through" <?php echo ($rowPp['discount']>0)?"":"hidden"?>><?php echo number_format($rowPp['price']);?> ₫</span>
-                <span class="text-xs font-semibold" <?php echo ($rowPp['discount']>0)?"":"hidden"?>>Giảm <?php echo $rowPp['discount']*100?>%</span>
-                    <div class="divHidden absolute opacity-75">
-                        <a href="pages/cart/workWithCart.php?id=<?php echo $rowPp['id'];?>">
-                            <p>Thêm giỏ hàng</p>
-                        </a>
-                    </div>
-                </li>
-                </a>
-            <?php
-                }
-            ?>
+        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly" id="prominentPhonesContent">
+            
         </ul>
     </div>
     <div>
@@ -216,40 +169,8 @@
         <div class="inline-block rounded-tl-lg">
             THAY PIN IPHONE CHÍNH HÃNG VÀ SỬA CHỮA
         </div>
-        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly">
-            <?php 
-            $iPhoneBatteryReplacementAndRepairSql = "
-            SELECT products.id as id, products.model as model, products.price as price,
-            products.thumbnail as thumbnail, products.discount as discount
-            FROM products
-            JOIN categories ON products.categoryId = categories.id
-            JOIN brands ON products.brandId = brands.id
-            WHERE categories.name IN ('pin', 'monitor') AND brands.brand LIKE 'Apple'
-            ORDER BY products.createAt DESC
-            LIMIT 15";
-        
-                // $appleAuthSql = "SELECT * FROM productdetails WHERE LOWER(brand) LIKE 'apple' LIMIT 20";
-                $iPhoneBatteryReplacementAndRepairQuery= mysqli_query($conn, $iPhoneBatteryReplacementAndRepairSql);
-                while($rowIb=mysqli_fetch_array($iPhoneBatteryReplacementAndRepairQuery)){
-            ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowIb['id'];?>">
-                <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
-                    <img src="<?php echo $rowIb['thumbnail']; ?>" alt="This is a image" />
-                    <p><?php echo $rowIb['model']; ?></p>
-                    <p><?php echo number_format($rowIb['price']*(1-$rowIb['discount'])); ?> ₫</p>
-                <span class="text-sm line-through" <?php echo ($rowIb['discount']>0)?"":"hidden"?>><?php echo number_format($rowIb['price']);?> ₫</span>
-                <span class="text-xs font-semibold" <?php echo ($rowIb['discount']>0)?"":"hidden"?>>Giảm <?php echo $rowIb['discount']*100?>%</span>
-                    <div class="divHidden absolute opacity-75">
-                        <a href="pages/cart/workWithCart.php?id=<?php echo $rowIb['id'];?>">
-                            <p>Thêm giỏ hàng</p>
-                        </a>
-                    </div>
-                </li>
-                </a>
-                
-            <?php
-                }
-            ?>
+        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly" id="iPhoneBatteryReplacementAndRepairContent">
+            
         </ul>
     </div>
     <div>
@@ -391,6 +312,6 @@
     </div>
 </div>
 
-
+<script src="./js/home.js"></script>
 
 
