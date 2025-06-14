@@ -117,7 +117,7 @@
             <div class="mx-0 my-auto pr-2"><?php echo $errorLogin?$errorLogin:$successLogin;?></div>
         </div>
         <img src="../../assets/images/icons/back.png" width="40px" alt="">
-        <a href="http://localhost/ThaiLinhStore/?quanly=home" class="text-white ml-1 hover:font-medium cursor-pointer">Trở về trang chủ</a>
+        <a href="http://localhost/shopABC/?quanly=home" class="text-white ml-1 hover:font-medium cursor-pointer">Trở về trang chủ</a>
         <div class="container">
             <h2></h2>
             <div class="items">

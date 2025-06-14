@@ -69,7 +69,7 @@
       <img src="https://cdn.hoanghamobile.com/i/home/Uploads/2023/09/14/anhdoc-3.jpg;width=410" class ="rounded shadow-lg" width="380" alt="">
     </div>
     <div class="mt-3">
-        <a href="http://localhost/ThaiLinhStore/?quanly=home">
+        <a href="http://localhost/shopABC/?quanly=home">
             <span>
                 <i class="fa-solid fa-house mr-1"></i>Home
             </span>
@@ -226,7 +226,7 @@
             $appleQuery= mysqli_query($conn, $appleSql);
             while($rowAp=mysqli_fetch_array($appleQuery)){
         ?>
-            <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowAp['id'];?>">
+            <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowAp['id'];?>">
             <li class="itemAp list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
                 <img src="<?php echo $rowAp['thumbnail']; ?>" alt="This is a image" />
                 <p><?php echo $rowAp['model']; ?></p>

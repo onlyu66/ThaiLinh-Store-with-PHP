@@ -57,7 +57,7 @@
         }
         // $_SESSION['cart']=array(array(),0);
 
-        // header("location: http://localhost/ThaiLinhStore/?quanly=home");
+        // header("location: http://localhost/shopABC/?quanly=home");
 ?>
         <div class="flex justify-end text-sm">
         <a href="./admin/authen/login.php" class="login" >Đăng nhập</a>

@@ -86,32 +86,32 @@
                                 </div>
                                 <div class="pl-2 mt-4 mb-2">
                                     <ul class="mt-1">
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1">VNPAY - Giảm thêm tới 200.000đ khi thanh toán qua VNPAY.</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1">Home PayLater - Trả góp qua Home PayLater giảm tới 1.000.000đ</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1"> VPBank - Mở thẻ VPBank, Ưu đãi tới 250.000đ.</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1"> ZaloPay - Ưu đãi tới 300.000đ khi thanh toán qua ZaloPay.</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1"> VIB - Nhận Voucher 250.000đ khi mở thẻ tín dụng VIB thành công.</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1">  Kredivo - Ưu đãi tới 200.000đ khi mua trước trả sau qua Kredivo.</p>
                                         </li>
-                                        <li class="flex border p-2 rounded mt-2">
-                                            <img src="./assets/images/icons/radio.png" width="15px" alt="">
+                                        <li class="flex items-center border p-2 rounded mt-2">
+                                            <img src="./assets/images/icons/radio.png" width="15px" alt="" class="w-4 h-4">
                                             <p class="text-sm pl-1">  Shinhan Finance - Ưu đãi trả góp 0% qua Shinhan Finance.</p>
                                         </li>
                                         
@@ -279,10 +279,10 @@
                 ?>" class="bg-zinc-200 rounded-2xl p-2 focus:outline-none indent-2.5 placeholder:text-sm mb-2">
                 <p class="text-sm font-semibold">Hình thức nhận hàng</p>
                 <div class="flex justify-evenly mt-2 htnhI">
-                    <label for="htnh2" class="flex border p-2 rounded cursor-pointer divR">
+                    <label for="htnh2" class="flex items-center border p-2 rounded cursor-pointer divR">
                         <input type="radio" name="htnh" value="2" class="htnh" id="htnh2" > <label for="htnh2" class="ml-1 text-sm cursor-pointer">Nhận hàng tại nhà</label>
                     </label>
-                    <label for="htnh1" class="flex border p-2 rounded cursor-pointer divR">
+                    <label for="htnh1" class="flex items-center border p-2 rounded cursor-pointer divR">
                         <input type="radio" name="htnh" value="1" class="htnh" id="htnh1" checked> <label for="htnh1" class="ml-1 text-sm cursor-pointer">Nhận hàng tại cửa hàng</label>
                     </label>
                 </div>
@@ -332,7 +332,7 @@
                             while($rowPa=mysqli_fetch_array($gYQuery)){
                         ?>
                         <li class="itemGy list-none p-2 border rounded shadow-md relative hover:shadow pb-3">
-                        <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowPa['id'];?>">
+                        <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowPa['id'];?>">
                             <img src="<?php echo $rowPa['thumbnail']; ?>" alt="This is a image" />
                             <p class="text-sm"><?php echo $rowPa['model']; ?></p>
                             <p class="text-sm mt-1"><?php echo number_format($rowPa['price']*(1-$rowPa['discount'])); ?> ₫</p>

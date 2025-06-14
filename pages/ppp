@@ -310,7 +310,7 @@
                             while($rowPa=mysqli_fetch_array($gYQuery)){
                         ?>
                         <li class="itemGy list-none p-2 m-px mx-4 my-2 border rounded shadow-md relative hover:shadow pb-3">
-                        <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowPa['id'];?>">
+                        <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowPa['id'];?>">
                             <img src="<?php echo $rowPa['thumbnail']; ?>" alt="This is a image" />
                             <p class="text-sm"><?php echo $rowPa['model']; ?></p>
                             <p class="text-sm mt-1"><?php echo number_format($rowPa['price']); ?> ₫</p>

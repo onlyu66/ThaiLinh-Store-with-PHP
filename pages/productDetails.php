@@ -83,13 +83,13 @@
     <div class="">
         <div class="mt-2 ">
             <span>
-                <a href="http://localhost/ThaiLinhStore/?quanly=home" class="no-underline">
+                <a href="http://localhost/shopABC/?quanly=home" class="no-underline">
                 <i class="fa-solid fa-house mr-1"></i>Home
                 </a>
             </span>
             >
             <span>
-                <a href="http://localhost/ThaiLinhStore/?quanly=<?php echo $b;?>">
+                <a href="http://localhost/shopABC/?quanly=<?php echo $b;?>">
                     <?php echo $a;?>
                 </a>
             </span>
@@ -194,7 +194,7 @@
                         <p class="text-sm">Hoặc 0% qua thẻ tín dụng</p>
                     </div>
                     <button type="submit" name="addToCartBtn" class="pt-2 shadow-sm button_">
-                        <!-- <a href="http://localhost/ThaiLinh%20Store/?quanly=cart&id=<?php /*echo $product_['id']*/?>"> -->
+                        <!-- <a href="http://localhost/shopABC/?quanly=cart&id=<?php /*echo $product_['id']*/?>"> -->
                             <img src="./assets/images/icons/cart.png" width="30px" alt="" class="mx-auto my-0 mt-1">
                             <p class="text-sm">Thêm giỏ hàng</p>
                         <!-- </a> -->

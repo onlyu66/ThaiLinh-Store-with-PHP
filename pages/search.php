@@ -65,7 +65,7 @@
         </div>
         <div class="mt-2">
             <span>
-                <a href="http://localhost/ThaiLinhStore/?quanly=home" class="no-underline">
+                <a href="http://localhost/shopABC/?quanly=home" class="no-underline">
                 <i class="fa-solid fa-house mr-1"></i>Home
                 </a>
             </span>
@@ -85,7 +85,7 @@
                 <ul class="subCategory p-0 z-50" >
                 <li>
                     <ul class="p-0">
-                    <a href="http://localhost/ThaiLinhStore/?quanly=apple"><li>Apple</li></a>
+                    <a href="http://localhost/shopABC/?quanly=apple"><li>Apple</li></a>
                     <li>Nokia</li>
                     <li>Infinix</li>
                     <li>TCL</li>
@@ -384,7 +384,7 @@
                 if(count($rowsP)>0){
                 foreach($rowsP as $rowP){
         ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowP['id'];?>">
+                <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowP['id'];?>">
                 <li class="itemP list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
                     <img src="<?php echo $rowP['thumbnail']; ?>" alt="This is a image" />
                     <p><?php echo $rowP['model']; ?></p>

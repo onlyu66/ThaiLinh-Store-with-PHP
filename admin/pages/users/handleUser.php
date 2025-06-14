@@ -7,6 +7,6 @@ include_once "../../../database/dbhelper.php";
         $status=($_POST['active']==0)?2:3;
         $sql="update users set active='$active', status='$status' where id='$id'";
         iud($sql);
-        // header("location: http://localhost/ThaiLinhStore/admin/?action=users");
+        // header("location: http://localhost/shopABC/admin/?action=users");
     }
 ?>

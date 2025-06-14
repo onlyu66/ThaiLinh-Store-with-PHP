@@ -4,7 +4,7 @@
         <div class='sidebar-brand'>
           <BsCart3  class='icon_header'/> SHOP
       </div> 
-        <h3>THAILINH STORE</h3>
+        <h3>SHOP ABC</h3>
         <span class={styles.close_icon} onClick={OpenSidebar}>
           X
         </span>
@@ -14,7 +14,7 @@
           <!-- {/* <div class="sidebar-brand">
             <BsCart3 class="icon_header" /> SHOP
           </div> */} -->
-          <h3>THAILINH STORE</h3>
+          <h3>SHOP ABC</h3>
           <!-- <span class={styles.close_icon} onClick={OpenSidebar}>
             X
           </span> -->

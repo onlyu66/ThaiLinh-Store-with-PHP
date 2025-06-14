@@ -4,7 +4,7 @@
         <BsJustify class="icon" onClick={OpenSidebar} />
       </div> -->
       <!-- {selectItem === "dashboard" ? (
-        <p>Welcome to ThaiLinh Store</p>
+        <p>Welcome to shopABC</p>
       ) : selectItem === "products" ? (
         <p>PRODUCTS</p>
       ) : selectItem === "users" ? (
@@ -14,20 +14,20 @@
       )} -->
       <?php 
         $currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        if($currentURL=="http://localhost/ThaiLinhStore/admin/?action=dashboard"){
-          echo"<p>Welcome to ThaiLinh Store</p>";
-        }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=products"){
+        if($currentURL=="http://localhost/shopABC/admin/?action=dashboard"){
+          echo"<p>Welcome to shopABC</p>";
+        }elseif($currentURL=="http://localhost/shopABC/admin/?action=products"){
           echo "<p>PRODUCTS</p>";
-        }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=orders"){
+        }elseif($currentURL=="http://localhost/shopABC/admin/?action=orders"){
           echo "<p>ORDERS</p>";
-        }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=users"){
+        }elseif($currentURL=="http://localhost/shopABC/admin/?action=users"){
           echo "<p>USERS</p>";
-        }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=admin/profile"){
+        }elseif($currentURL=="http://localhost/shopABC/admin/?action=admin/profile"){
           echo "<p>ADMIN</p>";
-        }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=admin/change_password"){
+        }elseif($currentURL=="http://localhost/shopABC/admin/?action=admin/change_password"){
           echo "<p>ADMIN</p>";
         }else {
-          echo"<p>Welcome to ThaiLinh Store</p>";
+          echo"<p>Welcome to shopABC</p>";
         }
       ?>
       <form action="" method="get" class="formFilter">
@@ -37,17 +37,17 @@
           type="text"
         />
         <button type="submit" class="<?php 
-          if($currentURL=="http://localhost/ThaiLinhStore/admin/?action=dashboard"){
+          if($currentURL=="http://localhost//admin/?action=dashboard"){
             echo"searchIcon";
-          }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=products"){
+          }elseif($currentURL=="http://localhost/shopABC/admin/?action=products"){
             echo"searchIcon3";
-          }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=orders"){
+          }elseif($currentURL=="http://localhost/shopABC/admin/?action=orders"){
             echo"searchIcon1";
-          }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=users"){
+          }elseif($currentURL=="http://localhost/shopABC/admin/?action=users"){
             echo"searchIcon1";
-          }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=admin/profile"){
+          }elseif($currentURL=="http://localhost/shopABC/admin/?action=admin/profile"){
             echo"searchIcon1";
-          }elseif($currentURL=="http://localhost/ThaiLinhStore/admin/?action=admin/change_password"){
+          }elseif($currentURL=="http://localhost/shopABC/admin/?action=admin/change_password"){
             echo"searchIcon1";
           }
           ?>">

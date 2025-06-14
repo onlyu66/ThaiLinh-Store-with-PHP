@@ -2,7 +2,7 @@
 <div>
       <ul class="menuContainer rounded z-30">
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=phone">
+          <a href="http://localhost/shopABC/?quanly=phone">
             <div
               class="item item1"
             >
@@ -22,7 +22,7 @@
                   <tr>
                     <td>
                       <ul>
-                        <a href="http://localhost/ThaiLinhStore/?quanly=apple"><li>Apple</li></a>
+                        <a href="http://localhost/shopABC/?quanly=apple"><li>Apple</li></a>
                         <li>Oppo</li>
                         <li>Realme</li>
                         <li>Infinix</li>
@@ -66,7 +66,7 @@
           </div>
         </li>
         <li class="itemContainer">
-          <a href="http://localhost/ThaiLinhStore/?quanly=apple">
+          <a href="http://localhost/shopABC/?quanly=apple">
             <div
               class="item"
             >
@@ -76,7 +76,7 @@
           </a>
         </li>
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=phukien">
+          <a href="http://localhost/shopABC/?quanly=phukien">
             <div class="item">
               <img class="img" src="./assets/images/icons/headphones.png" alt="" />
               <span>PHỤ KIỆN</span>
@@ -141,7 +141,7 @@
           </div>
         </li>
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=maytroi">
+          <a href="http://localhost/shopABC/?quanly=maytroi">
             <div class="item">
               <img class="img" src="./assets/images/icons/recovery.png" alt="" />
               <span>MÁY TRÔI</span>
@@ -182,7 +182,7 @@
           </div>
         </li>
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=suachua">
+          <a href="http://localhost/shopABC/?quanly=suachua">
             <div class="item">
               <img class="img" src="./assets/images/icons/settings.png" alt="" />
               <span>SỬA CHỮA</span>
@@ -251,7 +251,7 @@
           </div>
         </li>
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=dichvu">
+          <a href="http://localhost/shopABC/?quanly=dichvu">
             <div class="item">
               <img class="img" src="./assets/images/icons/service.png" alt="" />
               <span>DỊCH VỤ</span>
@@ -283,7 +283,7 @@
           </div>
         </li>
         <li class="itemContainer">
-          <a href="http://localhost/ThaiLinhStore/?quanly=tinhot">
+          <a href="http://localhost/shopABC/?quanly=tinhot">
             <div class="item">
               <img class="img" src="./assets/images/icons/hot-news.png" alt="" />
               <span>TIN HOT</span>
@@ -291,7 +291,7 @@
           </a>
         </li>
         <li class="itemContainer itemContainer1">
-          <a href="http://localhost/ThaiLinhStore/?quanly=uudai">
+          <a href="http://localhost/shopABC/?quanly=uudai">
             <div class="item">
               <img class="img" src="./assets/images/icons/incentive.png" alt="" />
               <span style="padding: 0px 6px" >ƯU ĐÃI</span>

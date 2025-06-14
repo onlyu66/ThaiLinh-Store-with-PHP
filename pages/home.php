@@ -70,7 +70,7 @@
                     while($row=mysqli_fetch_array($mayBeLikeProductQuery)){
                 ?>
                 <li class="itemA list-none p-2 border rounded shadow-md relative hover:shadow">
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $row['id'];?>">
+                <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $row['id'];?>">
 
                     <img src="<?php echo $row['thumbnail']; ?>" alt="This is a image" />
                     <p><?php echo $row['model']; ?></p>
@@ -106,7 +106,7 @@
                 $appleAuthQuery= mysqli_query($conn, $appleAuthSql);
                 while($rowAa=mysqli_fetch_array($appleAuthQuery)){
             ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowAa['id'];?>">
+                <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowAa['id'];?>">
                 <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
                     <img src="<?php echo $rowAa['thumbnail']; ?>" alt="This is a image" />
                     <p><?php echo $rowAa['model']; ?></p>
@@ -149,7 +149,7 @@
                 $prominentPhoneQuery= mysqli_query($conn, $prominentPhoneSql);
                 while($rowPp=mysqli_fetch_array($prominentPhoneQuery)){
             ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowPp['id'];?>">
+                <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowPp['id'];?>">
                 <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
                     <img src="<?php echo $rowPp['thumbnail']; ?>" alt="This is a image" />
                     <p><?php echo $rowPp['model']; ?></p>
@@ -188,7 +188,7 @@
                     while($rowPsh=mysqli_fetch_array($prominentSpeakersHeadphonesQuery)){
                 ?>
                     <li class="itemA list-none p-2 border rounded shadow-md relative hover:shadow">
-                    <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowPsh['id'];?>">
+                    <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowPsh['id'];?>">
                         <!-- <div> -->
                             <img src="<?php echo $rowPsh['thumbnail']; ?>" alt="This is a image" />
                             <p><?php echo $rowPsh['model']; ?></p>
@@ -216,7 +216,7 @@
         <div class="inline-block rounded-tl-lg">
             THAY PIN IPHONE CHÍNH HÃNG VÀ SỬA CHỮA
         </div>
-        <ul class="p-0 pt-2 m-0 flex flex-wrap justify-evenly">
+        <ul class="p-0 pt-2 m-0 flex flex-wrap flex-start justify-evenly">
             <?php 
             $iPhoneBatteryReplacementAndRepairSql = "
             SELECT products.id as id, products.model as model, products.price as price,
@@ -232,7 +232,7 @@
                 $iPhoneBatteryReplacementAndRepairQuery= mysqli_query($conn, $iPhoneBatteryReplacementAndRepairSql);
                 while($rowIb=mysqli_fetch_array($iPhoneBatteryReplacementAndRepairQuery)){
             ?>
-                <a href="http://localhost/ThaiLinhStore/?quanly=productDetails&id=<?php echo $rowIb['id'];?>">
+                <a href="http://localhost/shopABC/?quanly=productDetails&id=<?php echo $rowIb['id'];?>">
                 <li class="itemA list-none p-2 m-px my-1.5 border rounded shadow-md relative hover:shadow">
                     <img src="<?php echo $rowIb['thumbnail']; ?>" alt="This is a image" />
                     <p><?php echo $rowIb['model']; ?></p>
@@ -309,7 +309,7 @@
     <div class="technologyNews rounded mt-3.5" >
     <div class="inline-block rounded-tl-lg">TIN CÔNG NGHỆ</div>
     </div>
-    <div class="customerOfThaiLinh rounded mt-5">
+    <div class="customerOfABC rounded mt-5">
         <div
             class="divCustomers inline-block rounded-tl-lg"
         >

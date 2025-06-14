@@ -123,7 +123,7 @@
                     <div>
                         <div style="margin-top:320px" class="w-full bg-teal-600 rounded-2xl py-3 focus:outline-none indent-2.5 placeholder:text-sm mb-2 relative flex justify-end ">
                             <img src="./assets/images/icons/icon-youknow.png" width="140" alt="" class="absolute bottom-1 left-0">
-                            <p class="text-sm text-white absolute " style="left:148px;">MUA HÀNG ĐỂ CÓ THẾ TRẢI NGHIỆM DỊCH VỤ CỦA THAILINH STORE</p>
+                            <p class="text-sm text-white absolute " style="left:148px;">MUA HÀNG ĐỂ CÓ THẾ TRẢI NGHIỆM DỊCH VỤ CỦA SHOP ABC</p>
                             <a href="?quanly=home" class="border rounded p-2 font-semibold bg-slate-50 hover:bg-slate-200 mr-4" style="border-color: rgb(13 148 136); border-width: 2px;">
                                 <p>Mua ngay</p>
                             </a>
