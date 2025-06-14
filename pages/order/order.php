@@ -148,7 +148,6 @@
             </ul>
         </div>
         <?php
-            
             if(isset($_SESSION['id'])){
                 $sql="select * from users where id=$idUser";
                 $user=select($sql,true);

@@ -1,4 +1,4 @@
-.formProduct div input {
+/* .formProduct div input {
   border: 1px solid black;
   flex: 4;
   width: 80%;
@@ -30,7 +30,7 @@
 }
 .formProduct {
   padding: 20px;
-}
+} */
 /* .formProduct >input{
     background-color: rgb(24, 24, 24);
     padding: 10px;
@@ -41,3 +41,15 @@
     font-weight: 600;
     background-color: #3a3a3a !important;
 } */
+
+.color-label {
+  margin-left: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.color-icon {
+  margin-right: 0.5rem;
+}

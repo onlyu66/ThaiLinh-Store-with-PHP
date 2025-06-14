@@ -1,287 +1,444 @@
 <?php
-    include_once "../../../database/config.php";
-    include_once "../../../database/dbhelper.php";
-    session_start();
+  include_once"../../../database/config.php";    
+  include_once"../../../database/dbhelper.php";    
+  session_start();
+  header('Content-Type: application/json');
+  
+  $response = [
+  'success' => false,
+  'errors' => [],
+  'message' => ''
+  ];
+  try{
     
-    // Hàm validate dữ liệu đầu vào
-    function validateProductData($data, $files) {
-        $errors = array();
+    // Handle Add Product
+    if (isset($_POST['addProduct'])){
+      
+      // Validate input
+      $errors = [];
+      
+      // Required fields
+      $requiredFields = ['brand', 'model', 'version', 'price', 'stockQuantity', 'category'];
+      foreach ($requiredFields as $field){
+        if (empty($_POST[$field])){
+          $errors[$field] = ucfirst($field) . ' is required';
+
+        }
+
+      }
+      
+      // Validate price and stock
+      if (!empty($_POST['price']) && (!is_numeric($_POST['price']) || $_POST['price'] <= 0)){
+        $errors['price'] = 'Price must be a positive number';
+
+      }
+      if (!empty($_POST['stockQuantity']) && (!is_numeric($_POST['stockQuantity']) || $_POST['stockQuantity'] < 0)){
+        $errors['stockQuantity'] = 'Stock quantity must be a non-negative number';
+
+      }
+      
+      // Validate thumbnail
+      if (empty($_FILES['image']['name'])){
+        $errors['image'] = 'Thumbnail is required';
+
+      }
+      
+      // Validate Gallery Images
+      if (empty($_FILES['images']['name'][0])){
+        $errors['images'] = 'Gallery images is required';
+
+      }else{
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        $maxFileSize = 5 * 1024 * 1024;
         
-        // Validate brand
-        if (empty($data['brand'])) {
-            $errors['brand'] = "Vui lòng chọn thương hiệu";
+        // 5MB
+        $maxFiles = 5;
+        
+        // Giới hạn số lượng file
+
+        // Kiểm tra số lượng file
+        if (count($_FILES['images']['name']) > $maxFiles){
+          $errors['images'] = "Maximum $maxFiles gallery images allowed";
+
         }
         
-        // Validate model
-        if (empty(trim($data['model']))) {
-            $errors['model'] = "Tên sản phẩm không được để trống";
-        } elseif (strlen(trim($data['model'])) < 2) {
-            $errors['model'] = "Tên sản phẩm phải có ít nhất 2 ký tự";
-        }
-        
-        // Validate version
-        if (empty($data['version'])) {
-            $errors['version'] = "Vui lòng chọn phiên bản";
-        }
-        
-        // Validate category
-        if (empty($data['category'])) {
-            $errors['category'] = "Vui lòng chọn danh mục";
-        }
-        
-        // Validate color
-        if (empty($data['color']) || !is_array($data['color'])) {
-            $errors['color'] = "Vui lòng chọn ít nhất một màu sắc";
-        }
-        
-        // Validate price
-        if (empty($data['price'])) {
-            $errors['price'] = "Giá sản phẩm không được để trống";
-        } elseif (!is_numeric($data['price']) || $data['price'] <= 0) {
-            $errors['price'] = "Giá sản phẩm phải là số dương";
-        }
-        
-        // Validate discount
-        if (!empty($data['discount'])) {
-            $discount_num = filter_var($data['discount'], FILTER_SANITIZE_NUMBER_INT);
-            if ($discount_num < 0 || $discount_num > 100) {
-                $errors['discount'] = "Giảm giá phải từ 0% đến 100%";
-            }
-        }
-        
-        // Validate stock quantity
-        if (empty($data['stockQuantity'])) {
-            $errors['stockQuantity'] = "Số lượng không được để trống";
-        } elseif (!is_numeric($data['stockQuantity']) || $data['stockQuantity'] < 0) {
-            $errors['stockQuantity'] = "Số lượng phải là số không âm";
-        }
-        
-        // Validate description
-        if (empty(trim($data['description']))) {
-            $errors['description'] = "Mô tả sản phẩm không được để trống";
-        } elseif (strlen(trim($data['description'])) < 10) {
-            $errors['description'] = "Mô tả sản phẩm phải có ít nhất 10 ký tự";
-        }
-        
-        // Validate main image (for add product)
-        if (isset($files['image']) && empty($files['image']['name'])) {
-            $errors['image'] = "Vui lòng chọn ảnh đại diện cho sản phẩm";
-        }
-        
-        // Validate file types
-        $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'webp');
-        
-        if (isset($files['image']) && !empty($files['image']['name'])) {
-            $file_extension = strtolower(pathinfo($files['image']['name'], PATHINFO_EXTENSION));
-            if (!in_array($file_extension, $allowed_types)) {
-                $errors['image'] = "Ảnh đại diện phải có định dạng: " . implode(', ', $allowed_types);
+        // Kiểm tra từng file
+        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name){
+          if (!empty($tmp_name)){
+            $fileType = $_FILES['images']['type'][$key];
+            $fileSize = $_FILES['images']['size'][$key];
+            
+            // Kiểm tra loại file
+            if (!in_array($fileType, $allowedTypes)){
+              $errors['images'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
+              break;
+
             }
             
-            // Validate file size (max 5MB)
-            if ($files['image']['size'] > 5242880) {
-                $errors['image'] = "Ảnh đại diện không được vượt quá 5MB";
+            // Kiểm tra kích thước file
+            if ($fileSize > $maxFileSize){
+              $errors['images'] = 'Gallery image size must be less than 5MB';
+              break;
+
             }
+
+          }
+
         }
+
+      }
+      
+      // Validate Colors
+      if (empty($_POST['color'][0])){
+        $errors['color'] = 'Minimum 1 color must be selected';
+
+      }else{
+        $maxColors = 6;
         
-        // Validate gallery images
-        if (isset($files['images']) && !empty($files['images']['name'][0])) {
-            foreach ($files['images']['name'] as $key => $filename) {
-                if (!empty($filename)) {
-                    $file_extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-                    if (!in_array($file_extension, $allowed_types)) {
-                        $errors['images'] = "Tất cả ảnh mô tả phải có định dạng: " . implode(', ', $allowed_types);
-                        break;
-                    }
-                    
-                    // Validate file size (max 5MB each)
-                    if ($files['images']['size'][$key] > 5242880) {
-                        $errors['images'] = "Mỗi ảnh mô tả không được vượt quá 5MB";
-                        break;
-                    }
-                }
+        // Giới hạn số màu được chọn
+        if (count($_POST['color']) > $maxColors){
+          $errors['color'] = "Maximum $maxColors colors can be selected";
+
+        }
+
+      }
+      if (!empty($errors)){
+        $response['errors'] = $errors;
+        echo json_encode($response);
+        exit;
+
+      }
+      
+      // Process the data
+      $brand = $_POST['brand'];
+      $model = $_POST['model'];
+      $version = $_POST['version'];
+      $colors = isset($_POST['color']) ? json_encode($_POST['color']) : '[]';
+      $price = $_POST['price'];
+      $discount = !empty($_POST['discount']) ? $_POST['discount'] / 100 : 0;
+      $description = $_POST['description'];
+      $stockQuantity = $_POST['stockQuantity'];
+      $category = $_POST['category'];
+      $createAt = date('Y-m-d H:i:s');
+      
+      // Insert product
+      $sql ="INSERT INTO products (brandId, model, versionId, colors, price, discount, description, 
+                                    stockQuantity, categoryId, createAt) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";    
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("isssddsiis", 
+            $brand, $model, $version, $colors, $price, $discount, 
+            $description, $stockQuantity, $category, $createAt
+        );    
+      if ($stmt->execute()){
+        $productId = $stmt->insert_id;
+        
+        // Handle thumbnail upload
+        $uploadDir ="../../../assets/images/uploads/";    
+        if (!file_exists($uploadDir)){
+          mkdir($uploadDir, 0777, true);
+
+        }
+        $thumbnail = $_FILES['image'];
+        $thumbnailName = time() . '_' . basename($thumbnail['name']);
+        $thumbnailPath = $uploadDir . $thumbnailName;
+        if (move_uploaded_file($thumbnail['tmp_name'], $thumbnailPath)){
+          
+          // Update thumbnail path in database
+          $thumbnailDbPath ="./assets/images/uploads/" . $thumbnailName;    
+          $stmt = $conn->prepare("UPDATE products SET thumbnail = ? WHERE id = ?");    
+          $stmt->bind_param("si", $thumbnailDbPath, $productId);    
+          $stmt->execute();
+          
+          // Handle gallery images
+          if (!empty($_FILES['images']['name'][0])){
+            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name){
+              $imageName = time() . '_' . $_FILES['images']['name'][$key];
+              $imagePath = $uploadDir . $imageName;
+              if (move_uploaded_file($tmp_name, $imagePath)){
+                $imageDbPath = "./assets/images/uploads/" . $imageName;
+                $stmt = $conn->prepare("INSERT INTO galleries (productId, thumbnail) VALUES (?, ?)");
+                $stmt->bind_param("is", $productId, $imageDbPath);
+                $stmt->execute();
+
+              }
+
             }
+
+          }
+          $response['success'] = true;
+          $response['message'] = 'Product added successfully!';
+
+        }else{
+          throw new Exception("Error uploading thumbnail");
+
         }
-        
-        return $errors;
+
+      }else{
+        throw new Exception("Error inserting product data");
+
+      }
+
     }
     
-    if(isset($_POST['sort'])){
-        $_SESSION['sort']=$_POST['sort'];
-    }
-    
-    if (isset($_POST["addProduct"])) {
-        // Validate dữ liệu
-        $errors = validateProductData($_POST, $_FILES);
+    // Thêm vào phần xử lý edit product
+    elseif (isset($_POST['editProduct'])){
+      try{
         
-        if (!empty($errors)) {
-            // Lưu lỗi vào session để hiển thị
-            $_SESSION['errors'] = $errors;
-            $_SESSION['old_data'] = $_POST; // Lưu dữ liệu cũ để hiển thị lại form
-            header("location: ../../?action=products&error=validation");
-            exit();
+        // Validate input
+        $errors = [];
+        
+        // Lấy ID sản phẩm
+        $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+        if ($id <= 0){
+          throw new Exception('Invalid product ID');
+
         }
         
+        // Required fields
+        $requiredFields = ['brand', 'model', 'version', 'price', 'stockQuantity', 'category'];
+        foreach ($requiredFields as $field){
+          if (empty($_POST[$field])){
+            $errors[$field] = ucfirst($field) . ' is required';
+
+          }
+
+        }
+        
+        // Validate price and stock
+        if (!empty($_POST['price']) && (!is_numeric($_POST['price']) || $_POST['price'] <= 0)){
+          $errors['price'] = 'Price must be a positive number';
+
+        }
+        if (!empty($_POST['stockQuantity']) && (!is_numeric($_POST['stockQuantity']) || $_POST['stockQuantity'] < 0)){
+          $errors['stockQuantity'] = 'Stock quantity must be a non-negative number';
+
+        }
+        
+        // Validate Colors
+        if (empty($_POST['color'][0])){
+          $errors['color'] = 'Minimum 1 color must be selected';
+
+        }else{
+          $maxColors = 6;
+          
+          // Giới hạn số màu được chọn
+          if (count($_POST['color']) > $maxColors){
+            $errors['color'] = "Maximum $maxColors colors can be selected";
+
+          }
+
+        }
+        
+        // Validate Images (optional)
+        $thumbnailChanged = !empty($_FILES['image']['name']);
+        $galleryChanged = !empty($_FILES['images']['name'][0]);
+        if ($thumbnailChanged){
+          $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+          $maxFileSize = 5 * 1024 * 1024;
+          
+          // 5MB
+
+          // Kiểm tra loại file
+          if (!in_array($_FILES['image']['type'], $allowedTypes)){
+            $errors['image'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
+
+          }
+          
+          // Kiểm tra kích thước file
+          if ($_FILES['image']['size'] > $maxFileSize){
+            $errors['image'] = 'Thumbnail image size must be less than 5MB';
+
+          }
+
+        }
+        
+        // Validate gallery images if uploaded
+        if ($galleryChanged){
+          $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+          $maxFileSize = 5 * 1024 * 1024;
+          
+          // 5MB
+          $maxFiles = 5;
+          
+          // Giới hạn số lượng file
+
+          // Kiểm tra số lượng file
+          if (count($_FILES['images']['name']) > $maxFiles){
+            $errors['images'] = "Maximum $maxFiles gallery images allowed";
+
+          }
+          
+          // Kiểm tra từng file
+          foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name){
+            if (!empty($tmp_name)){
+              $fileType = $_FILES['images']['type'][$key];
+              $fileSize = $_FILES['images']['size'][$key];
+              
+              // Kiểm tra loại file
+              if (!in_array($fileType, $allowedTypes)){
+                $errors['images'] = 'Invalid image type. Only JPEG, PNG, and WebP are allowed';
+                break;
+
+              }
+              
+              // Kiểm tra kích thước file
+              if ($fileSize > $maxFileSize){
+                $errors['images'] = 'Gallery image size must be less than 5MB';
+                break;
+
+              }
+
+            }
+
+          }
+
+        }
+        
+        // Nếu có lỗi, trả về ngay
+        if (!empty($errors)){
+          $response['errors'] = $errors;
+          echo json_encode($response);
+          exit;
+
+        }
+        
+        // Chuẩn bị dữ liệu
         $brand = $_POST['brand'];
-        $model = trim($_POST['model']);
+        $model = $_POST['model'];
         $version = $_POST['version'];
-        $color = isset($_POST['color']) ? $_POST['color'] : array();
-        $colors = json_encode($color);
+        $colors = json_encode($_POST['color']);
         $price = $_POST['price'];
-        $discount = $_POST['discount'];
-        $description = trim($_POST['description']);
+        $discount = !empty($_POST['discount']) ? $_POST['discount'] / 100 : 0;
+        $description = $_POST['description'];
         $stockQuantity = $_POST['stockQuantity'];
         $category = $_POST['category'];
-        $createAt = date("Y-m-d H:i:s");
-        $num = ($discount != '') ? filter_var($discount, FILTER_SANITIZE_NUMBER_INT) / 100 : 0;
-        $deleted = 0;
+        $updateAt = date('Y-m-d H:i:s');
         
-        $sqlAdd = "INSERT INTO products (brandId, model, versionId, colors, price, discount, description, stockQuantity, categoryId, createAt, deleted) VALUES ('$brand','$model','$version', '$colors', '$price','$num','$description','$stockQuantity','$category','$createAt', '$deleted')";
+        // Upload directory
+        $uploadDir ="../../../assets/images/uploads/";    
+        if (!file_exists($uploadDir)){
+          mkdir($uploadDir, 0777, true);
+
+        }
         
-        if (mysqli_query($conn, $sqlAdd)) {
-            $id = mysqli_insert_id($conn);
+        // Chuẩn bị câu truy vấn cập nhật
+        $updateSql ="UPDATE products SET 
+            brandId = ?, 
+            model = ?, 
+            versionId = ?, 
+            colors = ?, 
+            price = ?, 
+            discount = ?, 
+            description = ?, 
+            stockQuantity = ?, 
+            categoryId = ?,
+            updateAt = ?
+            WHERE id = ?";    
+        $stmt = $conn->prepare($updateSql);
+        $stmt->bind_param("isssddsiisi", 
+            $brand, $model, $version, $colors, $price, $discount, 
+            $description, $stockQuantity, $category, $updateAt, $id
+        );    
+        
+        // Thực thi update sản phẩm
+        if ($stmt->execute()){
+          
+          // Xử lý upload ảnh đại diện nếu có
+          if ($thumbnailChanged){
+            $thumbnailName = time() . '_' . basename($_FILES['image']['name']);
+            $thumbnailPath = $uploadDir . $thumbnailName;
+            $thumbnailDbPath ="./assets/images/uploads/" . $thumbnailName;    
             
-            // Xử lý hình ảnh
-            $targetDirectory = "./assets/images/uploads/";
-            $targetFile = $targetDirectory . basename($_FILES["image"]["name"]);
-            
-            if (file_exists($targetFile)) {
-                echo "Tệp tin đã tồn tại.";
-            } else {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], "../../." . $targetFile)) {
-                    $sqlThumbnail = "update products set thumbnail = '$targetFile' where id = '$id'";
-                    mysqli_query($conn, $sqlThumbnail);
-                } else {
-                    $_SESSION['errors'] = array('general' => 'Có lỗi khi tải lên ảnh đại diện');
-                    header("location: ../../?action=products&error=upload");
-                    exit();
-                }
+            // Di chuyển file
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $thumbnailPath)){
+              
+              // Cập nhật đường dẫn ảnh đại diện
+              $stmt = $conn->prepare("UPDATE products SET thumbnail = ? WHERE id = ?");
+              $stmt->bind_param("si", $thumbnailDbPath, $id);
+              $stmt->execute();
+
+            }else{
+              throw new Exception("Lỗi khi upload ảnh đại diện");
+
             }
+
+          }
+          
+          // Xử lý ảnh gallery nếu có
+          if ($galleryChanged){
             
-            // Xử lý ảnh mô tả
-            if (!empty($_FILES["images"]["name"][0])) {
-                foreach ($_FILES["images"]["name"] as $key => $filename) {
-                    $targetFiles = $targetDirectory . basename($filename);
-                    
-                    if (file_exists($targetFiles)) {
-                        echo "Tệp tin đã tồn tại.";
-                    } else if (move_uploaded_file($_FILES["images"]["tmp_name"][$key], "../../." . $targetFiles)) {
-                        $sqlGalleries = "INSERT INTO galleries (productId, thumbnail) VALUES ('$id', '$targetFiles')";
-                        mysqli_query($conn, $sqlGalleries);
-                    } else {
-                        $_SESSION['errors'] = array('general' => "Có lỗi khi tải lên hình ảnh $filename");
-                        header("location: ../../?action=products&error=upload");
-                        exit();
-                    }
-                }
-            } else {
-                $sqlGalleries = "INSERT INTO galleries (productId, thumbnail) VALUES ('$id', '$targetFile')";
-                mysqli_query($conn, $sqlGalleries);
+            // Xóa ảnh gallery cũ
+            $stmt = $conn->prepare("DELETE FROM galleries WHERE productId = ?");    
+            $stmt->bind_param("i", $id);    
+            $stmt->execute();
+            
+            // Thêm ảnh gallery mới
+            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name){
+              $imageName = time() . '_' . $_FILES['images']['name'][$key];
+              $imagePath = $uploadDir . $imageName;
+              $imageDbPath ="./assets/images/uploads/" . $imageName;    
+              if (move_uploaded_file($tmp_name, $imagePath)){
+                $stmt = $conn->prepare("INSERT INTO galleries (productId, thumbnail) VALUES (?, ?)");
+                $stmt->bind_param("is", $id, $imageDbPath);
+                $stmt->execute();
+
+              }
+
             }
-            
-            $_SESSION['success'] = "Thêm sản phẩm thành công!";
-        } else {
-            $_SESSION['errors'] = array('general' => 'Lỗi khi thêm sản phẩm: ' . mysqli_error($conn));
+
+          }
+          $response['success'] = true;
+          $response['message'] = 'Cập nhật sản phẩm thành công!';
+
+        }else{
+          throw new Exception("Lỗi khi cập nhật sản phẩm");
+
         }
-        
-        mysqli_close($conn);
-        header("location: ../../?action=products");
-        
-    } elseif(isset($_POST["editProduct"])) {
-        // Validate dữ liệu cho edit (tương tự như add nhưng không bắt buộc ảnh)
-        $errors = validateProductData($_POST, $_FILES);
-        
-        // Đối với edit, ảnh không bắt buộc
-        if (isset($errors['image']) && !empty($_POST['imgValue'])) {
-            unset($errors['image']);
-        }
-        
-        if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            $_SESSION['old_data'] = $_POST;
-            $id = $_GET['id'];
-            header("location: ../../?action=products&edit=$id&error=validation");
-            exit();
-        }
-        
-        $brand = $_POST['brand'];
-        $model = trim($_POST['model']);
-        $version = $_POST['version'];
-        $color = isset($_POST['color']) ? $_POST['color'] : array();
-        $colors = json_encode($color);
-        $price = $_POST['price'];
-        $discount = $_POST['discount'];
-        $description = trim($_POST['description']);
-        $stockQuantity = $_POST['stockQuantity'];
-        $category = $_POST['category'];
-        $updateAt = date("Y-m-d H:i:s");
-        $num = ($discount != '') ? filter_var($discount, FILTER_SANITIZE_NUMBER_INT) / 100 : 0;
-        $id = $_GET['id'];
-        
-        $targetDirectory = "./assets/images/uploads/";
-        
-        if (!empty($_FILES["image"]["name"])) {
-            $targetFile = $targetDirectory . basename($_FILES["image"]["name"]);
-        } else {
-            $targetFile = $_POST['imgValue'];
-        }
-        
-        if (!empty($_FILES["image"]["name"]) && !file_exists($targetFile)) {
-            if (!move_uploaded_file($_FILES["image"]["tmp_name"], "../../." . $targetFile)) {
-                $_SESSION['errors'] = array('general' => 'Có lỗi khi tải lên ảnh đại diện');
-                header("location: ../../?action=products&edit=$id&error=upload");
-                exit();
-            }
-        }
-        
-        $updateSql = "UPDATE products SET brandId='$brand', model='$model', versionId='$version', colors='$colors', price='$price', discount='$num', description='$description', stockQuantity ='$stockQuantity', categoryId='$category', thumbnail='$targetFile', updateAt='$updateAt' WHERE id='$id'";
-        
-        if (mysqli_query($conn, $updateSql)) {
-            $imagesSql = "select * from galleries where productId='$id'";
-            $images = select($imagesSql, false);
-            
-            if (!empty($_FILES["images"]["name"][0])) {
-                $sqlGalleriesDel = "delete from galleries where productId = '$id'";
-                mysqli_query($conn, $sqlGalleriesDel);
-                
-                foreach ($_FILES["images"]["name"] as $key => $filename) {
-                    $targetFiles = $targetDirectory . basename($filename);
-                    
-                    if (!file_exists($targetFiles)) {
-                        if (move_uploaded_file($_FILES["images"]["tmp_name"][$key], "../../." . $targetFiles)) {
-                            $sqlGalleries = "INSERT INTO galleries (productId, thumbnail) VALUES ('$id', '$targetFiles')";
-                            mysqli_query($conn, $sqlGalleries);
-                        }
-                    }
-                }
-            } else {
-                $sqlGalleriesDel = "delete from galleries where productId = '$id'";
-                mysqli_query($conn, $sqlGalleriesDel);
-                foreach ($images as $img) {
-                    $a = $img['thumbnail'];
-                    $sqlGalleries = "INSERT INTO galleries (productId, thumbnail) VALUES ('$id', '$a')";
-                    mysqli_query($conn, $sqlGalleries);
-                }
-            }
-            
-            $_SESSION['success'] = "Cập nhật sản phẩm thành công!";
-        } else {
-            $_SESSION['errors'] = array('general' => 'Lỗi khi cập nhật sản phẩm: ' . mysqli_error($conn));
-        }
-        
-        header("location: ../../?action=products");
-        
-    } elseif(isset($_POST['delete'])) {
-        $id = $_POST['delete'];
-        
-        $deleteGallery = "delete from galleries where productId='$id'";
-        $deleteSql = "delete from products where id='$id'";
-        
-        if (iud($deleteGallery) && iud($deleteSql)) {
-            $_SESSION['success'] = "Xóa sản phẩm thành công!";
-        } else {
-            $_SESSION['errors'] = array('general' => 'Có lỗi khi xóa sản phẩm');
-        }
-        
-        header("location: ../../?action=products");
+
+      }
+      catch (Exception $e){
+        $response['message'] = $e->getMessage();
+
+      }
+
     }
+    
+    // Handle Delete Product
+    elseif (isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      
+      // Delete gallery images first
+      $stmt = $conn->prepare("DELETE FROM galleries WHERE productId = ?");    
+      $stmt->bind_param("i", $id);    
+      $stmt->execute();
+      
+      // Then delete the product
+      $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");    
+      $stmt->bind_param("i", $id);    
+      if ($stmt->execute()){
+        $response['success'] = true;
+        $response['message'] = 'Product deleted successfully!';
+
+      }else{
+        throw new Exception("Error deleting product");
+
+      }
+
+    }
+    
+    // Handle Sort
+    elseif (isset($_POST['sort'])){
+      $_SESSION['sort'] = $_POST['sort'];
+      $response['success'] = true;
+
+    }
+
+  }
+  catch (Exception $e){
+    $response['message'] = $e->getMessage();
+
+  }
+  echo json_encode($response);
+
 ?>

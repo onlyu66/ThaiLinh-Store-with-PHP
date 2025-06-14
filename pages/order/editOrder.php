@@ -23,7 +23,7 @@
             $sqlOrders="select * from orders where orderCode=$orderCode";
             $result_=select($sqlOrders,true);
             // echo $orderCode;
-            if(isset($_POST['editOrderBtn'])){
+            if(isset($result_)){
 
                 $fullName=$_POST['fullName'];
                 $phoneNumber=$_POST['phoneNumber'];
